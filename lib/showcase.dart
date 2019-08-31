@@ -23,6 +23,7 @@ class Showcase extends StatefulWidget {
   final double height;
   final double width;
   final Duration animationDuration;
+  final VoidCallback onTapped;
 
   const Showcase({
     @required this.key,
@@ -38,6 +39,7 @@ class Showcase extends StatefulWidget {
     this.textColor = Colors.black,
     this.showArrow = true,
     this.animationDuration = const Duration(milliseconds: 2000),
+    this.onTapped
   })  : height = null,
         width = null,
         container = null,
@@ -73,6 +75,7 @@ class Showcase extends StatefulWidget {
     this.showcaseBackgroundColor = Colors.white,
     this.textColor = Colors.black,
     this.animationDuration = const Duration(milliseconds: 2000),
+    this.onTapped
   })  : this.showArrow = false,
         assert(overlayOpacity >= 0.0 && overlayOpacity <= 1.0,
             "overlay opacity should be >= 0.0 and <= 1.0."),
@@ -162,6 +165,9 @@ class _ShowcaseState extends State<Showcase> with TickerProviderStateMixin {
   }
 
   _nextIfAny() {
+    if(widget.onTapped != null)
+      widget.onTapped();
+
     ShowCaseWidget.completed(context, widget.key);
     _slideAnimationController.forward();
   }
